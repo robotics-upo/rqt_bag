@@ -96,6 +96,14 @@ class BagWidget(QWidget):
         self.record_button.setIcon(QIcon.fromTheme('media-record'))
         self.load_button.setIcon(QIcon.fromTheme('document-open'))
         self.save_button.setIcon(QIcon.fromTheme('document-save'))
+#---------------------------
+        # Añadimos icono boton
+        self.capture_button.setIcon(QIcon.fromTheme('window-new'))
+        # Conectamos el boton con el handler
+        self.capture_button.clicked[bool].connect(self._handle_capture_clicked)
+        # Boton a false
+        self.capture_button.setEnabled(False)
+#----------------------------
 
         self.play_button.clicked[bool].connect(self._handle_play_clicked)
         self.thumbs_button.clicked[bool].connect(self._handle_thumbs_clicked)
@@ -139,6 +147,23 @@ class BagWidget(QWidget):
 
         self._timeline.status_bar_changed_signal.connect(self._update_status_bar)
         self.set_status_text.connect(self._set_status_text)
+
+#---------------------------------
+
+    def load_bag(self, filename):
+        qDebug("Loading '%s'..." % filename)
+        self.set_status_text.emit("Loading '%s'..." % filename)
+
+        try:
+            bag = rosbag.Bag(filename)
+            self.capture_button.setEnabled(True)
+        except:
+            print("Error.")
+            
+    def _handle_capture_clicked(self):
+        self._timeline.capture()
+    
+#----------------------------------    
 
     def graphics_view_on_key_press(self, event):
         key = event.key()
