@@ -17,27 +17,18 @@
    <property name="spacing">
     <number>0</number>
    </property>
-   <property name="margin">
+   <property name="leftMargin">
     <number>0</number>
    </property>
-   <!-- Modificado -->
-   <item>
-    <widget class="QPushButton" name="capture_button">
-     <property name="toolTip">
-      <string>Capture Image</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>16</width>
-       <height>16</height>
-      </size>
-     </property>
-    </widget>  
-   </item>
-   <!-- Termina modificacion -->
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
@@ -298,6 +289,24 @@
        </property>
       </widget>
      </item>
+     <!--Boton añadido-->
+     <item>
+      <widget class="QPushButton" name="capture_button">
+       <property name="toolTip">
+        <string>Capture Image</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <!--Termina modificacion-->
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
@@ -421,14 +430,14 @@
      </item>
      <item>
       <widget class="QLabel" name="playspeed_label">
-       <property name="toolTip">
-        <string>Playback speed</string>
-       </property>
        <property name="maximumSize">
         <size>
          <width>80</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="toolTip">
+        <string>Playback speed</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::Panel</enum>
@@ -446,14 +455,14 @@
      </item>
      <item>
       <widget class="QLabel" name="filesize_label">
-       <property name="toolTip">
-        <string>Bag size</string>
-       </property>
        <property name="maximumSize">
         <size>
          <width>80</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="toolTip">
+        <string>Bag size</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::Panel</enum>
