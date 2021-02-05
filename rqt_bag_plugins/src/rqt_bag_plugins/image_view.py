@@ -31,6 +31,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 from PIL import Image
+from rqt_bag import CaptureImage
 
 # HACK workaround for upstream pillow issue python-pillow/Pillow#400
 import sys
@@ -99,21 +100,23 @@ class ImageView(TopicMessageView):
         self.set_image(None, None, None)
 
     # End MessageView implementation
+#--------------------------
+    #Modificamos funcion
     def put_image_into_scene(self):
         if self._image:
-            scale_factor = min(
-                float(self._image_view.size().width() - 2) / self._image.size[0],
-                float(self._image_view.size().height() - 2) / self._image.size[1])
-            resized_image = self._image.resize(
-                (int(scale_factor * self._image.size[0]),
-                 int(scale_factor * self._image.size[1])),
-                self.quality)
-
-            QtImage = ImageQt(resized_image)
-            pixmap = QPixmap.fromImage(QtImage)
-            self._scene.clear()
-            self._scene.addPixmap(pixmap)
-
+            if self.capture is None:
+                resized_image = self._image.resize((self._image_view.size().width()-2, self._image_view.size().height()-2, self.quality))
+                QtImage = ImageQt(resized_image)
+                pixmap = QPixmap.fromImage(QtImage)
+                self._scene.clear()
+                self._scene.addPixmap(pixmap)
+            else:
+                QtImage = ImageQt(self._image)
+                pixmap = QPixmap.fromImage(QtImage)
+                self.label = CaptureImage(self._timeline, self._topic, self._image_msg, self.capture)
+                self.label.setPixmap(pixmap)
+                self._scene.addWidget(self.label)
+#--------------------------
     def set_image(self, image_msg, image_topic, image_stamp):
         self._image_msg = image_msg
         if image_msg:
