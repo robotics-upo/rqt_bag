@@ -112,7 +112,22 @@ class BagTimeline(QGraphicsScene):
 
         self.background_progress = 0
         self.__closed = False
-
+#----------------------------
+    def capture(self):
+        for topic in self._get_topics():
+            bag, entry = self.get_entry(self._timeline_frame.playhead, topic)
+            if entry is not None:
+                topic, msg, t = self.read_message(bag, entry.position)
+                labels = topic.split('/')
+                popup_name = labels[1] + '__Capture'
+                viewer_types = self._timeline_frame.get_viewer_types(self.get_datatype(topic))
+                for view_type in viewer_types:
+                    if view_type.name=='Image' and popup_name not in self.popups:
+                        frame = TopicPopupWidget(popup_name, self, view_type, str(topic), t)
+                        self.add_view(topic, frame)
+                        self.popups[popup_name] = frame
+                        frame.show(self.get_context())
+#-------------------------------
     def get_context(self):
         """
         :returns: the ROS_GUI context, 'PluginContext'
