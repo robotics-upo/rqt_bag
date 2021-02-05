@@ -84,7 +84,10 @@ class TopicPopupWidget(QWidget):
                 self.layout().itemAt(i).widget().setParent(None)
 
             # create a new viewer
-            self._viewer = self._viewer_type(self._timeline, self, self._topic)
+#-------------------------------
+            #Modificado self.stamp            
+            self._viewer = self._viewer_type(self._timeline, self, self._topic, self.stamp)
+#------------------------------- 
             if not self._is_listening:
                 self._timeline.add_listener(self._topic, self._viewer)
                 self._is_listening = True
