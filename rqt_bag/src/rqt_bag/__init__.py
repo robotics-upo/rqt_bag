@@ -35,3 +35,5 @@ from rqt_bag.plugins.message_view import MessageView
 from rqt_bag.plugins.topic_message_view import TopicMessageView
 from rqt_bag.plugins.timeline_renderer import TimelineRenderer
 from rqt_bag.timeline_cache import TimelineCache
+# Importamos
+from rqt_bag.capture_image import CaptureImage
